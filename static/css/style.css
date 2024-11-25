@@ -1,0 +1,664 @@
+body {
+  --text: #ededed;
+  --background: #212731;
+  --primary: #393e46;
+  --secondary: #dddbff;
+  --accent: #ffff00;
+
+  background-color: var(--background);
+}
+
+.navbar {
+  background-color: transparent;
+}
+
+.nav-link {
+  color: var(--text);
+}
+
+.nav-link:hover {
+  color: #ffff00;
+}
+
+.navbar-brand {
+  width: 60px;
+  height: auto;
+}
+
+.search-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: var(--secondary);
+  margin-right: 12px;
+}
+
+.search-button:hover {
+  background-color: var(--accent);
+}
+
+.navbar-toggler {
+  background-color: var(--secondary);
+  border: solid var(--secondary);
+}
+
+
+
+#gameCarousel {
+  height: 100vh;
+}
+.carousel-inner {
+  max-height: 100vh;
+}
+
+.carousel-item {
+  position: relative;
+  height: 100vh;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.574);
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  z-index: 10;
+  height: 30vh;
+  width: 80vw;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-text p {
+  margin-bottom: 0;
+}
+
+.typewriter p {
+  color: var(--text);
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.1em solid var(--accent); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.1em; /* Adjust as needed */
+  animation: typing 3.5s steps(30, end), blink-caret 0.5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--accent);
+  }
+}
+
+.hero-text-inner {
+  margin-bottom: 20px;
+}
+.hero-text h1 {
+  color: var(--accent);
+  font-family: "Rubik Dirt", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 60px;
+  width: 15vw;
+  color: var(--primary);
+}
+
+.arrow-container {
+  position: absolute;
+  top: 90%;
+  left: calc(50% - 44px);
+  transform: translate(10%, -50%);
+  z-index: 12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transform: translate(10%, -50%);
+  -moz-transform: translate(10%, -50%);
+  -ms-transform: translate(10%, -50%);
+  -o-transform: translate(10%, -50%);
+}
+.browse-btn {
+  font-family: "Poppins", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--background);
+}
+
+/* Arrow styling and animation */
+.arrow-img {
+  width: 80px; /* Adjust size as needed */
+  animation: bounce 1.5s infinite;
+}
+
+/* Keyframes for bounce effect */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(15px);
+    opacity: 0.5;
+  }
+}
+
+/* genres section */
+.genre-section {
+  margin-top: 28px;
+  margin-bottom: 28px;
+  width: 98vw;
+}
+.genre-title {
+  margin: 20px;
+  text-align: center;
+  color: var(--text);
+  font-family: "Tilt Neon", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "XROT" 0, "YROT" 0;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 150px);
+  gap: 15px;
+  padding: 12px;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.game-card {
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.game-title {
+  color: var(--text);
+  font-weight: bold;
+  font-size: 1.2em;
+  position: relative;
+  z-index: 2;
+  font-family: "Oxanium", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+.game-subtitle {
+  color: var(--text);
+  font-size: 0.5em;
+  margin-top: 5px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card-specific styles */
+.pvp-game {
+  background-image: url("../img/diablo-immortal.jpg");
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+  grid-row: span 2;
+}
+
+.roulette {
+  background-image: url("../img/call-of-duty.jpg");
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.jackpot {
+  background-image: url("../img/dota-2.jpg");
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+  grid-row: span 2;
+}
+
+.crash {
+  background-image: url("../img/world-of-warships.jpg");
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cases {
+  background-image: url("../img/forza-motorsport.jpg");
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slots {
+  background-image: url("../img/apex-legends.jpg");
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Add sparkle effect */
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: sparkle 1.5s infinite;
+}
+
+.pvp-game .roulette {
+  background-position: center;
+  background-attachment: scroll;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* game card */
+.card {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  min-height: 360px;
+  min-width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: black;
+  margin: 8px;
+  position: relative;
+}
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  background-color: var(--primary);
+  padding: 15px;
+}
+
+.publisher-badge {
+  background-color: var(--secondary);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.player-count {
+  color: #808080;
+  font-size: 14px;
+}
+.game-releases {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.small-game-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.platform {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.small-game-card {
+  display: flex;
+  background-color: #2a2a2a;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 8px;
+  min-width: 400px;
+  width: 100%;
+}
+
+.small-game-image {
+  flex-basis: 40%;
+  background-size: cover;
+  background-position: center;
+}
+
+.small-game-info {
+  flex-basis: 60%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.small-game-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.popular-link {
+  width: 100%;
+}
+.download-button {
+  width: 100%;
+  background-color: var(--accent);
+  color: var(--primary);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.download-button:hover {
+  background-color: var(--primary);
+  color: var(--text);
+}
+.popular-section {
+  padding: 12px;
+  width: 100%;
+}
+.collection-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+}
+
+.releases-section h2,
+.popular-section h2 {
+  font-family: "Tilt Neon", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "XROT" 0, "YROT" 0;
+  color: var(--text);
+}
+
+@media screen and (min-width: 768px) {
+  .collection-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 8px;
+  }
+
+  .releases-section {
+    grid-column: 1 / 2;
+    height: 100%;
+  }
+
+  .popular-section {
+    grid-column: 2 / 3;
+    padding: 0;
+    height: 100%;
+  }
+  .card {
+    min-width: 240px;
+    min-height: none;
+    height: 240px;
+  }
+
+  .small-game-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .small-game-card {
+    min-width: auto;
+    width: 96%;
+  }
+  .game-releases {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1134px) {
+  .game-releases {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+a {
+  text-decoration: none;
+}
+/* From Uiverse.io by mobinkakei */
+button {
+  position: relative;
+  margin: 0;
+  padding: 12px 32px;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: var(--primary);
+  border: 1px solid var(--background);
+  border-radius: 10px;
+  color: var(--accent);
+  font-weight: 400;
+  font-family: inherit;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+button span {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+}
+
+button:hover {
+  animation: rotate624 0.7s ease-in-out both;
+}
+
+button:hover span {
+  animation: storm1261 0.7s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+@keyframes rotate624 {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes storm1261 {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
+
+.btn-shine {
+  border: 1px solid;
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-shine span {
+  z-index: 20;
+  color: var(--text);
+}
+
+.btn-shine:after {
+  background: var(--accent);
+  content: "";
+  height: 155px;
+  left: -75px;
+  opacity: 0.4;
+  position: absolute;
+  top: -50px;
+  transform: rotate(35deg);
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+  width: 50px;
+  z-index: -10;
+}
+
+.btn-shine:hover:after {
+  left: 120%;
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.more-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+/* Media queries for responsive design */
+
+@media screen and (min-width: 768px) {
+  .hero-text {
+    width: 35vw;
+    height: 30vh;
+    transform: none;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    top: 38%;
+    left: 60px;
+  }
+  .game-grid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 250px);
+  }
+  .jackpot {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  .crash {
+    grid-column: span 2;
+  }
+  .slots {
+    grid-row: span 2;
+  }
+
+}
+
+@media screen and (max-width:768px) {
+  .navbar-collapse {
+    background-color: var(--primary);
+    padding: 12px;
+  }
+}

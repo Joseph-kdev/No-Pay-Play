@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Dirt&family=Tilt+Neon&display=swap" rel="stylesheet">
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/genre.css') }}">
+    <title>{{ genre }} games</title>
+    <style>
+        .genre-hero {
+            background-image: url('{{ hero_background }}');
+        }
+    </style>
+</head>
+<body>
+    {% include 'navigation.html' %}
+    <section class="genre-header">
+        <div class="genre-hero">
+            <div class="overlay"></div>
+            <h1 class="genre-title">Free {{ genre }} games</h1>
+        </div>
+        <div class="genre-filters">
+          <div class="genre-section-drop">
+              <h4>Platform:</h4>
+              <span class="custom-dropdown">
+                  <select id="platform-select">
+                      {% for platform in platforms %}
+                      <option value="{{platform}}" {% if platform == current_platform %}selected{% endif %}>
+                          {{platform|title}}
+                      </option>
+                      {% endfor %}
+                  </select>
+              </span>
+          </div>
+          <div class="genre-section-drop">
+              <h4>Genre:</h4>
+              <span class="custom-dropdown">
+                  <select id="category-select">
+                      {% for category in categories %}
+                      <option value="{{category}}" {% if category == current_category %}selected{% endif %}>
+                          {{category|title}}
+                      </option>
+                      {% endfor %}
+                  </select>
+              </span>
+          </div>
+          <div class="genre-section-drop">
+              <h4>Sort by:</h4>
+              <span class="custom-dropdown">
+                  <select id="sort-select">
+                      {% for sort in sorts %}
+                      <option value="{{sort}}" {% if sort == current_sort %}selected{% endif %}>
+                          {{sort|title}}
+                      </option>
+                      {% endfor %}
+                  </select>
+              </span>
+          </div>
+      </div>
+      
+    </section>
+    <section class="games-section">
+      <div id="games-container" class="game-releases">
+        {% include 'games_list.html' %}
+    </div>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(function(toggle) {
+            new bootstrap.Dropdown(toggle);
+        });
+    });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const platformSelect = document.getElementById('platform-select');
+    const categorySelect = document.getElementById('category-select');
+    const sortSelect = document.getElementById('sort-select');
+    const gamesContainer = document.getElementById('games-container');
+    
+    let isLoading = false;
+    
+    async function updateGames() {
+        if (isLoading) return;
+        
+        isLoading = true;
+        gamesContainer.innerHTML = `
+            <div class="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>`;
+        
+        const platform = platformSelect.value;
+        const category = categorySelect.value;
+        const sort = sortSelect.value;
+        
+        try {
+            const response = await fetch(
+                `/api/filter?platform=${encodeURIComponent(platform)}&category=${encodeURIComponent(category)}&sort=${encodeURIComponent(sort)}`
+            );
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const games = await response.json();
+            
+            if (games.error) {
+                throw new Error(games.message || 'Failed to load games');
+            }
+            
+            // Update URL without refreshing
+            const newUrl = `/genre/${category}?platform=${platform}&sort=${sort}`;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+            
+            renderGames(games);
+        } catch (error) {
+            console.error('Error:', error);
+            gamesContainer.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    Failed to load games. Please try again later.
+                </div>`;
+        } finally {
+            isLoading = false;
+        }
+    }
+    
+    function renderGames(games) {
+        if (!Array.isArray(games) || games.length === 0) {
+            gamesContainer.innerHTML = `
+                <div class="alert alert-info" role="alert">
+                    No games found matching your criteria.
+                </div>`;
+            return;
+        }
+        
+        gamesContainer.innerHTML = games.map(game => `
+            <div class="card">
+                <img
+                    src="${escapeHtml(game.thumbnail)}"
+                    class="card-img-top"
+                    alt="${escapeHtml(game.title)}"
+                    loading="lazy"
+                />
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="text-white mb-2">${escapeHtml(game.title)}</h5>
+                            <span class="publisher-badge">
+                                <small>${escapeHtml(game.genre)}</small>
+                            </span>
+                        </div>
+                    <a href="/game/${game.id}">
+                        <button
+                            class="btn btn-dark mx-2"
+                            style="background-color: yellow; color: gray"
+                        >
+                            Play
+                        </button>
+                    </a>
+                    </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <span class="player-count">${escapeHtml(game.short_description)}</span>
+                    </div>
+                                    <div class="platform">
+                    ${game.platform.includes('PC') ? `
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 30 30" fill="yellow">
+                            <path d="M12 16L3 16 3 23.75 12 24.988zM12 5L3 6.25 3 14 12 14zM14 4.75L14 14 27 14 27 3zM14 16L14 25.25 27 27 27 16z"></path>
+                        </svg>
+                    ` : `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" x="0px" y="0px" width="24" height="24" stroke-width="0.5" fill="none" stroke="yellow" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                        </svg>
+                    `}
+                </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Helper function to prevent XSS
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+    
+    // Add debounced event listeners
+    let timeout;
+    const handleChange = () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(updateGames, 300);
+    };
+    
+    platformSelect.addEventListener('change', handleChange);
+    categorySelect.addEventListener('change', handleChange);
+    sortSelect.addEventListener('change', handleChange);
+});
+</script>
+</body>
+</html>
