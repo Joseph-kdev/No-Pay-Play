@@ -625,7 +625,30 @@ button:hover span {
   justify-content: center;
   margin-top: 12px;
 }
-/* Media queries for responsive design */
+
+
+.footer {
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.footer-info p{
+  color: var(--primary);
+  font-family: 'poppins', sans-serif;
+}
+.social-icons {
+  margin-left: 0;
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 400px;
+}
 
 @media screen and (min-width: 768px) {
   .hero-text {

@@ -40,7 +40,7 @@ def populateFunction(table, query, limit=6):
                     continue
                 new_games = table(
                     id = release["id"],
-                    title = release["title"],
+                    title = release["title"].lower(),
                     thumbnail = release["thumbnail"],
                     genre = release["genre"],
                     platform = release["platform"],
@@ -70,6 +70,8 @@ def assignBackground(genre):
         return "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHowbm02d3N2dWkydW0yd2QzbWx1bHBtbG5kZjRrYndqNm5saTY0eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ylBNHicNjRfqmr8btd/giphy.gif"
     elif genre == "strategy":
         return "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmUwaDRqbHplbjZmMHVxODdiNDhkbHRobjEyZXQ5NjhtemJubnA2aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IXnnnVD5kyKqXRhaCR/giphy-downsized-large.gif"
+    elif genre == "sports":
+        return "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGdkYnQxcnlkdnZueXNjamc4anZqbmJsYW1vc3Job2ttcmZreXRoYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cDUgG78hHn7TOt1aLO/giphy-downsized.gif"
     else:
         return "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3Y1bjdkNzE0aWVpNnRoN3d1cHJ4NTltbXpmNnZka2JobzltaW9hMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AWYdAubkFK8yr0cpdE/giphy.gif"
 
@@ -188,7 +190,7 @@ def game_page(game_id):
 def search_page():
     game = []
     if request.method == 'POST':
-        search_query = request.form.get('search_query')
+        search_query = request.form.get('search_query').lower()
         game = NewReleases.query.filter_by(title=search_query).first()
         
         if game:
