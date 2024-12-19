@@ -4,7 +4,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/Joseph-kdev/No-Pay-Play)](https://github.com/Joseph-kdev/No-Pay-Play/stargazers)
 [![GitHub license](https://img.shields.io/github/license/Joseph-kdev/No-Pay-Play)](https://github.com/Joseph-kdev/No-Pay-Play/blob/main/LICENSE)
 
-## [Live Preview](no-pay-play.onrender.com)
+## Live Preview
+no-pay-play.onrender.com
 
 ## Description
 
